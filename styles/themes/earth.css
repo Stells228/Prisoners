@@ -1,13 +1,35 @@
 :root {
---earth-light: #F5F1E6;
---earth-beige-light: #E8D8C8;
---earth-brown: #A86F3F;
---earth-brown-dark: #7A5230;
---earth-dark: #1A1208;
---gradient-earth-bg: linear-gradient(#1A1208 100%);
---earth-brown-rgb: 168, 111, 63;
---earth-brown-dark-rgb: 122, 82, 48;
---earth-dark-rgb: 26, 18, 8;
+  --color-background: var(--earth-dark);
+  --color-surface: rgba(26, 18, 8, 0.8);
+  --color-text: var(--earth-light);
+  --color-text-secondary: var(--earth-beige-light);
+  --color-primary: var(--earth-brown);
+  --color-primary-hover: var(--earth-brown-dark);
+  --color-primary-active: #7A5230;
+  --color-secondary: rgba(168, 111, 63, 0.1);
+  --color-secondary-hover: rgba(168, 111, 63, 0.2);
+  --color-secondary-active: rgba(168, 111, 63, 0.3);
+  --color-border: rgba(168, 111, 63, 0.4);
+  --color-border-secondary: rgba(168, 111, 63, 0.2);
+  --color-card-border: rgba(168, 111, 63, 0.3);
+  --color-card-border-inner: rgba(168, 111, 63, 0.2);
+  --color-btn-primary-text: var(--earth-light);
+  --color-focus-ring: rgba(168, 111, 63, 0.5);
+  
+  --color-success: var(--earth-brown);
+  --color-error: #BC2F2F;
+  --color-warning: var(--earth-brown-dark);
+  --color-info: var(--earth-beige-light);
+
+  --earth-light: #F5F1E6;
+  --earth-beige-light: #E8D8C8;
+  --earth-brown: #A86F3F;
+  --earth-brown-dark: #7A5230;
+  --earth-dark: #1A1208;
+  --gradient-earth-bg: linear-gradient(#1A1208 100%);
+  --earth-brown-rgb: 168, 111, 63;
+  --earth-brown-dark-rgb: 122, 82, 48;
+  --earth-dark-rgb: 26, 18, 8;
 }
 
 .body-earth {

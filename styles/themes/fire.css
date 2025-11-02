@@ -1,4 +1,26 @@
 :root {
+  --color-background: var(--fire-dark);
+  --color-surface: rgba(36, 23, 5, 0.8);
+  --color-text: var(--fire-light);
+  --color-text-secondary: var(--fire-orange-light);
+  --color-primary: var(--fire-orange);
+  --color-primary-hover: var(--fire-orange-dark);
+  --color-primary-active: #BC430D;
+  --color-secondary: rgba(240, 148, 16, 0.1);
+  --color-secondary-hover: rgba(240, 148, 16, 0.2);
+  --color-secondary-active: rgba(240, 148, 16, 0.3);
+  --color-border: rgba(240, 148, 16, 0.4);
+  --color-border-secondary: rgba(240, 148, 16, 0.2);
+  --color-card-border: rgba(240, 148, 16, 0.3);
+  --color-card-border-inner: rgba(240, 148, 16, 0.2);
+  --color-btn-primary-text: var(--fire-dark);
+  --color-focus-ring: rgba(240, 148, 16, 0.5);
+  
+  --color-success: var(--fire-orange);
+  --color-error: #D93B3B;
+  --color-warning: var(--fire-orange-dark);
+  --color-info: var(--fire-orange-light);
+
   --fire-light: #FEEAF0;
   --fire-orange-light: #F0D0C7;
   --fire-orange: #F09410;

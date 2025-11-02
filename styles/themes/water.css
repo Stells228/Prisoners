@@ -1,3 +1,27 @@
+:root {
+  --color-background: var(--water-deep);
+  --color-surface: rgba(10, 26, 47, 0.8);
+  --color-text: var(--water-light);
+  --color-text-secondary: var(--water-blue-light);
+  --color-primary: var(--water-blue);
+  --color-primary-hover: var(--water-blue-dark);
+  --color-primary-active: #2C5AA0;
+  --color-secondary: rgba(74, 144, 226, 0.1);
+  --color-secondary-hover: rgba(74, 144, 226, 0.2);
+  --color-secondary-active: rgba(74, 144, 226, 0.3);
+  --color-border: rgba(74, 144, 226, 0.4);
+  --color-border-secondary: rgba(74, 144, 226, 0.2);
+  --color-card-border: rgba(74, 144, 226, 0.3);
+  --color-card-border-inner: rgba(74, 144, 226, 0.2);
+  --color-btn-primary-text: var(--water-light);
+  --color-focus-ring: rgba(74, 144, 226, 0.5);
+  
+  --color-success: var(--water-blue);
+  --color-error: #E74C3C;
+  --color-warning: var(--water-blue-dark);
+  --color-info: var(--water-blue-light);
+}
+
 .bubble.type-1 {
   width: 6px;  
   height: 6px;
