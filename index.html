@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Парадокс Трёх Узников</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/themes/fire.css">
+    <link rel="stylesheet" href="styles/themes/water.css">
+    <link rel="stylesheet" href="styles/themes/earth.css">
+    <link rel="stylesheet" href="styles/themes/air.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Abril+Fatface&display=swap" rel="stylesheet">
+</head>
+<body class="body-fire">
+
+    <div id="spark-container" class="spark-container"></div>
+    <div id="bubble-container" class="bubble-container"></div>
+    <div id="particle-container" class="particle-container"></div>
+    <div id="air-particle-container" class="air-particle-container"></div>
+    
+
+    <div class="container">
+        <header>
+            <h1 class="theme-fire">⚡ ПАРАДОКС ТРЁХ УЗНИКОВ ⚡</h1>
+            <h1 class="theme-water" style="display: none;">🌊 ПАРАДОКС ТРЁХ УЗНИКОВ 🌊</h1>
+            <h1 class="theme-earth" style="display: none;">⛰️ ПАРАДОКС ТРЁХ УЗНИКОВ ⛰️</h1>
+            <h1 class="theme-air" style="display: none;">💨 ПАРАДОКС ТРЁХ УЗНИКОВ 💨</h1>
+            
+            <div class="theme-fire">
+                <p class="description">Три узника ждут вынесения приговора. Один будет <strong>помилован</strong>, двое — казнены в огне.</p>
+                <p class="description"><strong>▸ Узник A</strong> спрашивает стражника: «Назови имя одного из тех, кого казнят».</p>
+                <p class="description"><strong>▸ Стражник</strong> отвечает: «Узник B будет казнен».</p>
+            </div>
+            
+            <div class="theme-water" style="display: none;">
+                <p class="description">Три узника ждут вынесения приговора. Один будет <strong>помилован</strong>, двое — утоплены в воде.</p>
+                <p class="description"><strong>▸ Узник A</strong> спрашивает стражника: «Назови имя одного из тех, кого казнят».</p>
+                <p class="description"><strong>▸ Стражник</strong> отвечает: «Узник B будет казнен».</p>
+            </div>
+
+            <div class="theme-earth" style="display: none;">
+                <p class="description">Три узника ждут вынесения приговора. Один будет <strong>помилован</strong>, двое — погребены заживо.</p>
+                <p class="description"><strong>▸ Узник A</strong> спрашивает стражника: «Назови имя одного из тех, кого казнят».</p>
+                <p class="description"><strong>▸ Стражник</strong> отвечает: «Узник B будет казнен».</p>
+            </div>
+
+            <div class="theme-air" style="display: none;">
+                <p class="description">Три узника ждут вынесения приговора. Один будет <strong>помилован</strong>, двое — унесены ветром.</p>
+                <p class="description"><strong>▸ Узник A</strong> спрашивает стражника: «Назови имя одного из тех, кого казнят».</p>
+                <p class="description"><strong>▸ Стражник</strong> отвечает: «Узник B будет казнен».</p>
+            </div>
+            
+            <p class="description">
+                Теперь шансы узника A остаются <strong>1/3</strong>, а шансы узника C возрастают до <strong>2/3</strong>!
+            </p>
+            <p class="description">
+                Это классический вероятностный парадокс, аналогичный парадоксу Монти Холла.
+            </p>
+        </header>
+
+        <div class="theme-buttons">
+            <button class="theme-btn active" data-theme="fire">Огонь</button>
+            <button class="theme-btn" data-theme="water">Вода</button>
+            <button class="theme-btn" data-theme="earth">Земля</button>
+            <button class="theme-btn" data-theme="air">Воздух</button>
+        </div>
+
+        <div class="input-section theme-fire">
+            <div class="input-group">
+                <label for="sim-input">Количество симуляций:</label>
+                <input type="number" id="sim-input" value="10000" min="1000" max="1000000">
+            </div>
+            <div class="button-group">
+                <button id="btn-simulate">Запустить Симуляцию</button>
+                <button id="btn-execute-fire">Казнь в Огне</button>
+            </div>
+        </div>
+
+        <div class="input-section theme-water" style="display: none;">
+            <div class="input-group">
+                <label for="sim-input">Количество симуляций:</label>
+                <input type="number" id="sim-input-water" value="10000" min="1000" max="1000000">
+            </div>
+            <div class="button-group">
+                <button id="btn-simulate-water">Запустить Симуляцию</button>
+                <button id="btn-execute-water">Казнь в Воде</button>
+            </div>
+        </div>
+
+        <div class="input-section theme-earth" style="display: none;">
+            <div class="input-group">
+                <label for="sim-input-earth">Количество симуляций:</label>
+                <input type="number" id="sim-input-earth" value="10000" min="1000" max="1000000">
+            </div>
+            <div class="button-group">
+                <button id="btn-simulate-earth">Запустить Симуляцию</button>
+                <button id="btn-execute-earth">Погребение заживо</button>
+            </div>
+        </div>
+
+        <div class="input-section theme-air" style="display: none;">
+            <div class="input-group">
+                <label for="sim-input-air">Количество симуляций:</label>
+                <input type="number" id="sim-input-air" value="10000" min="1000" max="1000000">
+            </div>
+            <div class="button-group">
+                <button id="btn-simulate-air">Запустить Симуляцию</button>
+                <button id="btn-execute-air">Казнь Ветром</button>
+            </div>
+        </div>
+
+        <div class="prisoners-row theme-fire">
+            <div class="prisoner-container">
+                <svg class="prisoner-svg" id="prisoner-a" viewBox="0 0 50 100">
+                    <circle class="head-main" cx="25" cy="20" r="12"></circle>
+                    <line x1="25" y1="32" x2="25" y2="60"></line>
+                    <line x1="25" y1="40" x2="10" y2="50"></line>
+                    <line x1="25" y1="40" x2="40" y2="50"></line>
+                    <line x1="25" y1="60" x2="10" y2="85"></line>
+                    <line x1="25" y1="60" x2="40" y2="85"></line>
+                </svg>
+                <div class="prisoner-label">Узник A</div>
+                <div class="prisoner-chance">Шансы: ~33.3%</div>
+                <div class="fire-burst" id="fire-a"></div>
+                <div class="smoke-cloud" id="smoke-a"></div>
+            </div>
+
+            <div class="prisoner-container">
+                <svg class="prisoner-svg" id="prisoner-b" viewBox="0 0 50 100">
+                    <circle class="head-main" cx="25" cy="20" r="12"></circle>
+                    <line x1="25" y1="32" x2="25" y2="60"></line>
+                    <line x1="25" y1="40" x2="10" y2="50"></line>
+                    <line x1="25" y1="40" x2="40" y2="50"></line>
+                    <line x1="25" y1="60" x2="10" y2="85"></line>
+                    <line x1="25" y1="60" x2="40" y2="85"></line>
+                </svg>
+                <div class="prisoner-label">Узник B</div>
+                <div class="prisoner-chance">Назван стражником</div>
+                <div class="fire-burst" id="fire-b"></div>
+                <div class="smoke-cloud" id="smoke-b"></div>
+            </div>
+
+            <div class="prisoner-container">
+                <svg class="prisoner-svg" id="prisoner-c" viewBox="0 0 50 100">
+                    <circle class="head-main" cx="25" cy="20" r="12"></circle>
+                    <line x1="25" y1="32" x2="25" y2="60"></line>
+                    <line x1="25" y1="40" x2="10" y2="50"></line>
+                    <line x1="25" y1="40" x2="40" y2="50"></line>
+                    <line x1="25" y1="60" x2="10" y2="85"></line>
+                    <line x1="25" y1="60" x2="40" y2="85"></line>
+                </svg>
+                <div class="prisoner-label">Узник C</div>
+                <div class="prisoner-chance">Шансы: ~66.7%</div>
+                <div class="fire-burst" id="fire-c"></div>
+                <div class="smoke-cloud" id="smoke-c"></div>
+            </div>
+        </div>
+
+        <div class="prisoners-row theme-water" style="display: none;">
+            <div class="prisoner-container">
+                <svg class="prisoner-svg" id="prisoner-a-water" viewBox="0 0 50 100">
+                    <circle class="head-main" cx="25" cy="20" r="12"></circle>
+                    <line x1="25" y1="32" x2="25" y2="60"></line>
+                    <line x1="25" y1="40" x2="10" y2="50"></line>
+                    <line x1="25" y1="40" x2="40" y2="50"></line>
+                    <line x1="25" y1="60" x2="10" y2="85"></line>
+                    <line x1="25" y1="60" x2="40" y2="85"></line>
+                </svg>
+                <div class="prisoner-label">Узник A</div>
+                <div class="prisoner-chance">Шансы: ~33.3%</div>
+                <div class="water-splash" id="splash-a"></div>
+                <div class="bubble-burst" id="bubbles-a"></div>
+            </div>
+
+            <div class="prisoner-container">
+                <svg class="prisoner-svg" id="prisoner-b-water" viewBox="0 0 50 100">
+                    <circle class="head-main" cx="25" cy="20" r="12"></circle>
+                    <line x1="25" y1="32" x2="25" y2="60"></line>
+                    <line x1="25" y1="40" x2="10" y2="50"></line>
+                    <line x1="25" y1="40" x2="40" y2="50"></line>
+                    <line x1="25" y1="60" x2="10" y2="85"></line>
+                    <line x1="25" y1="60" x2="40" y2="85"></line>
+                </svg>
+                <div class="prisoner-label">Узник B</div>
+                <div class="prisoner-chance">Назван стражником</div>
+                <div class="water-splash" id="splash-b"></div>
+                <div class="bubble-burst" id="bubbles-b"></div>
+            </div>
+
+            <div class="prisoner-container">
+                <svg class="prisoner-svg" id="prisoner-c-water" viewBox="0 0 50 100">
+                    <circle class="head-main" cx="25" cy="20" r="12"></circle>
+                    <line x1="25" y1="32" x2="25" y2="60"></line>
+                    <line x1="25" y1="40" x2="10" y2="50"></line>
+                    <line x1="25" y1="40" x2="40" y2="50"></line>
+                    <line x1="25" y1="60" x2="10" y2="85"></line>
+                    <line x1="25" y1="60" x2="40" y2="85"></line>
+                </svg>
+                <div class="prisoner-label">Узник C</div>
+                <div class="prisoner-chance">Шансы: ~66.7%</div>
+                <div class="water-splash" id="splash-c"></div>
+                <div class="bubble-burst" id="bubbles-c"></div>
+            </div>
+        </div>
+
+        <div class="prisoners-row theme-earth" style="display: none;">
+            <div class="prisoner-container">
+                <svg class="prisoner-svg" id="prisoner-a-earth" viewBox="0 0 50 100">
+                    <circle class="head-main" cx="25" cy="20" r="12"></circle>
+                    <line x1="25" y1="32" x2="25" y2="60"></line>
+                    <line x1="25" y1="40" x2="10" y2="50"></line>
+                    <line x1="25" y1="40" x2="40" y2="50"></line>
+                    <line x1="25" y1="60" x2="10" y2="85"></line>
+                    <line x1="25" y1="60" x2="40" y2="85"></line>
+                </svg>
+                <div class="prisoner-label">Узник A</div>
+                <div class="prisoner-chance">Шансы: ~33.3%</div>
+                <div class="earth-crack" id="crack-a"></div>
+                <div class="dust-cloud" id="dust-a"></div>
+            </div>
+
+            <div class="prisoner-container">
+                <svg class="prisoner-svg" id="prisoner-b-earth" viewBox="0 0 50 100">
+                    <circle class="head-main" cx="25" cy="20" r="12"></circle>
+                    <line x1="25" y1="32" x2="25" y2="60"></line>
+                    <line x1="25" y1="40" x2="10" y2="50"></line>
+                    <line x1="25" y1="40" x2="40" y2="50"></line>
+                    <line x1="25" y1="60" x2="10" y2="85"></line>
+                    <line x1="25" y1="60" x2="40" y2="85"></line>
+                </svg>
+                <div class="prisoner-label">Узник B</div>
+                <div class="prisoner-chance">Назван стражником</div>
+                <div class="earth-crack" id="crack-b"></div>
+                <div class="dust-cloud" id="dust-b"></div>
+            </div>
+
+            <div class="prisoner-container">
+                <svg class="prisoner-svg" id="prisoner-c-earth" viewBox="0 0 50 100">
+                    <circle class="head-main" cx="25" cy="20" r="12"></circle>
+                    <line x1="25" y1="32" x2="25" y2="60"></line>
+                    <line x1="25" y1="40" x2="10" y2="50"></line>
+                    <line x1="25" y1="40" x2="40" y2="50"></line>
+                    <line x1="25" y1="60" x2="10" y2="85"></line>
+                    <line x1="25" y1="60" x2="40" y2="85"></line>
+                </svg>
+                <div class="prisoner-label">Узник C</div>
+                <div class="prisoner-chance">Шансы: ~66.7%</div>
+                <div class="earth-crack" id="crack-c"></div>
+                <div class="dust-cloud" id="dust-c"></div>
+            </div>
+        </div>
+
+        <div class="prisoners-row theme-air" style="display: none;">
+            <div class="prisoner-container">
+                <svg class="prisoner-svg" id="prisoner-a-air" viewBox="0 0 50 100">
+                    <circle class="head-main" cx="25" cy="20" r="12"></circle>
+                    <line x1="25" y1="32" x2="25" y2="60"></line>
+                    <line x1="25" y1="40" x2="10" y2="50"></line>
+                    <line x1="25" y1="40" x2="40" y2="50"></line>
+                    <line x1="25" y1="60" x2="10" y2="85"></line>
+                    <line x1="25" y1="60" x2="40" y2="85"></line>
+                </svg>
+                <div class="prisoner-label">Узник A</div>
+                <div class="prisoner-chance">Шансы: ~33.3%</div>
+                <div class="wind-gust" id="wind-a"></div>
+                <div class="air-dissipate" id="dissipate-a"></div>
+            </div>
+
+            <div class="prisoner-container">
+                <svg class="prisoner-svg" id="prisoner-b-air" viewBox="0 0 50 100">
+                    <circle class="head-main" cx="25" cy="20" r="12"></circle>
+                    <line x1="25" y1="32" x2="25" y2="60"></line>
+                    <line x1="25" y1="40" x2="10" y2="50"></line>
+                    <line x1="25" y1="40" x2="40" y2="50"></line>
+                    <line x1="25" y1="60" x2="10" y2="85"></line>
+                    <line x1="25" y1="60" x2="40" y2="85"></line>
+                </svg>
+                <div class="prisoner-label">Узник B</div>
+                <div class="prisoner-chance">Назван стражником</div>
+                <div class="wind-gust" id="wind-b"></div>
+                <div class="air-dissipate" id="dissipate-b"></div>
+            </div>
+
+            <div class="prisoner-container">
+                <svg class="prisoner-svg" id="prisoner-c-air" viewBox="0 0 50 100">
+                    <circle class="head-main" cx="25" cy="20" r="12"></circle>
+                    <line x1="25" y1="32" x2="25" y2="60"></line>
+                    <line x1="25" y1="40" x2="10" y2="50"></line>
+                    <line x1="25" y1="40" x2="40" y2="50"></line>
+                    <line x1="25" y1="60" x2="10" y2="85"></line>
+                    <line x1="25" y1="60" x2="40" y2="85"></line>
+                </svg>
+                <div class="prisoner-label">Узник C</div>
+                <div class="prisoner-chance">Шансы: ~66.7%</div>
+                <div class="wind-gust" id="wind-c"></div>
+                <div class="air-dissipate" id="dissipate-c"></div>
+            </div>
+        </div>
+
+        <!-- Секция результатов (общая для all тем) -->
+        <div id="results-section" class="hidden">
+            <div class="results-header">
+                <div class="results-title">Результаты симуляции</div>
+                <div class="results-subtitle">Статистический анализ парадокса</div>
+            </div>
+
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-label">Всего симуляций</div>
+                    <div class="result-value" id="stat-total">0</div>
+                    <div class="result-label">Общее количество испытаний</div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-label">Релевантных случаев</div>
+                    <div class="result-value" id="stat-b-named">0</div>
+                    <div class="result-label">Когда B был назван стражником</div>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="result-label">Вероятность выживания узника A</div>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="prob-a-bar" style="width: 0%"></div>
+                </div>
+                <div class="result-value" id="prob-a-value">0%</div>
+                <div class="result-label" id="count-a">Выживаний: 0</div>
+            </div>
+
+            <div class="progress-container">
+                <div class="result-label">Вероятность выживания узника C</div>
+                <div class="progress-bar">
+                    <div class="progress-bar-fill" id="prob-c-bar" style="width: 0%"></div>
+                </div>
+                <div class="result-value" id="prob-c-value">0%</div>
+                <div class="result-label" id="count-c">Выживаний: 0</div>
+            </div>
+
+            <div class="theory-explanation">
+                <h3>Теоретическое обоснование</h3>
+                <p>Изначально у каждого узника шанс 1/3 (33.3%). После того как стражник называет B:</p>
+                <ul>
+                    <li>Шансы A остаются ~33.3%</li>
+                    <li>Шансы C возрастают до ~66.7%</li>
+                    <li>B исключается (шансы 0%)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<script src="js/simulation.js"></script>
+<script src="js/themes/fire.js"></script>
+<script src="js/themes/water.js"></script>
+<script src="js/themes/earth.js"></script>
+<script src="js/themes/air.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
