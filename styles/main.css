@@ -1002,7 +1002,7 @@ body {
 
   h1 {
     margin-bottom: var(--space-16);
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-2xl);
   }
 
   .theme-buttons {
