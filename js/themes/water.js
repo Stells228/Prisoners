@@ -1,5 +1,5 @@
 let bubbleAnimationFrame;
-let bubbleCount = isMobile() ? 60 : 200; 
+let bubbleCount = isMobile() ? 30 : 200; 
 
 function isMobile() {
     return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -192,4 +192,5 @@ function optimizeBubblesForMobile() {
 }
 
 window.addEventListener('load', optimizeBubblesForMobile);
+
 window.addEventListener('resize', optimizeBubblesForMobile);
