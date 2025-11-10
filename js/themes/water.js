@@ -1,4 +1,5 @@
 let bubbleAnimationFrame;
+let bubbleCount = isMobile() ? 30 : 200; 
 
 function isMobile() {
     return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -180,10 +181,20 @@ if (!document.querySelector('#water-styles')) {
     document.head.appendChild(waterStyle);
 }
 
+function optimizeBubblesForMobile() {
+    if (isMobile() && window.currentTheme === 'water' && typeof generateBubbles === 'function') {
+        bubbleCount = 60;
+        if (bubbleAnimationFrame) {
+            cancelAnimationFrame(bubbleAnimationFrame);
+        }
+        setTimeout(generateBubbles, 100);
+    }
+}
 
 
 window.addEventListener('load', optimizeBubblesForMobile);
 
 window.addEventListener('resize', optimizeBubblesForMobile);
+
 
 
