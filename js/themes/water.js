@@ -1,7 +1,13 @@
 let bubbleAnimationFrame;
-let bubbleCount = 200; 
+let bubbleCount = isMobile() ? 60 : 200; 
+
+function isMobile() {
+    return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
 
 function generateBubbles() {
+    if (isMobile() && !document.getElementById('bubble-container')) return;
+    
     const container = document.getElementById('bubble-container');
     if (!container) return;
 
@@ -11,37 +17,54 @@ function generateBubbles() {
     
     container.innerHTML = '';
 
-    for (let i = 0; i < bubbleCount; i++) {
-        createBubble(container, i);
+    if (isMobile()) {
+        createBubblesBatch(container, 0);
+    } else {
+        for (let i = 0; i < bubbleCount; i++) {
+            createBubble(container, i);
+        }
     }
     
     setTimeout(() => {
         if (window.currentTheme === 'water') {
             generateBubbles();
         }
-    }, 60000); 
+    }, isMobile() ? 120000 : 60000);
+}
+
+function createBubblesBatch(container, index) {
+    if (index >= bubbleCount) return;
+    
+    const batchSize = Math.min(12, bubbleCount - index);
+    for (let i = 0; i < batchSize; i++) {
+        createBubble(container, index + i);
+    }
+    
+    setTimeout(() => {
+        createBubblesBatch(container, index + batchSize);
+    }, 16);
 }
 
 function createBubble(container, index) {
     const bubble = document.createElement('div');
-    const bubbleType = Math.floor(Math.random() * 6) + 1; 
+    const bubbleType = Math.floor(Math.random() * 4) + 1;
     bubble.className = `bubble type-${bubbleType}`;
     
     bubble.style.left = `${Math.random() * 100}%`;
-    bubble.style.top = `${Math.random() * 120}%`; 
+    bubble.style.top = `${Math.random() * (isMobile() ? 100 : 120)}%`;
     
-    bubble.style.animationDelay = `${Math.random() * 20}s, ${Math.random() * 10}s, ${Math.random() * 15}s`;
-    
-    const horizontalDrift = (Math.random() - 0.5) * 50;
+    const horizontalDrift = (Math.random() - 0.5) * (isMobile() ? 25 : 50);
     bubble.style.setProperty('--drift', `${horizontalDrift}px`);
     
-    const riseDelay = Math.random() * 10;
-    const glowDelay = Math.random() * 5;
-    const fadeDelay = Math.random() * 8;
+    const riseDelay = Math.random() * (isMobile() ? 5 : 10);
+    const glowDelay = Math.random() * (isMobile() ? 3 : 5);
+    const fadeDelay = Math.random() * (isMobile() ? 4 : 8);
     
     bubble.style.animationDelay = `${riseDelay}s, ${glowDelay}s, ${fadeDelay}s`;
     
-    bubble.style.willChange = 'transform, opacity';
+    if (!isMobile()) {
+        bubble.style.willChange = 'transform, opacity';
+    }
     
     container.appendChild(bubble);
 }
@@ -58,25 +81,21 @@ function executeWater() {
     resetAll();
 
     const random = Math.random();
-    const aSurvives = random < 1/3; // A выживает в 1/3 случаев
-    const cSurvives = !aSurvives;   // C выживает в 2/3 случаев
+    const aSurvives = random < 1/3;
+    const cSurvives = !aSurvives;
 
-    // Казнь B (первая) - всегда казнен, так как назван стражником
     setTimeout(() => {
         executePrisonerWater('b');
         showNotification('💧 Узник B утонул в глубинах', 'danger');
     }, 300);
 
-    // Казнь второго узника (A или C)
     setTimeout(() => {
         if (aSurvives) {
-            // C казнен, A выживает
             executePrisonerWater('c');
             highlightSurvivorWater('a');
             showNotification('💧 C утонул • A СПАСЁН!', 'success');
         } 
         else {
-            // A казнен, C выживает  
             executePrisonerWater('a');
             highlightSurvivorWater('c');
             showNotification('💧 A утонул • C СПАСЁН!', 'success');
@@ -129,66 +148,48 @@ if (!document.querySelector('#water-styles')) {
         
         .bubble.type-1 {
             animation: 
-                bubble-rise 25s infinite,
-                bubble-pulse-glow 8s infinite,
-                bubble-fade 10s infinite,
-                bubble-drift 40s infinite;
+                bubble-rise ${isMobile() ? 15 : 25}s infinite,
+                bubble-pulse-glow ${isMobile() ? 5 : 8}s infinite,
+                bubble-fade ${isMobile() ? 6 : 10}s infinite,
+                bubble-drift ${isMobile() ? 25 : 40}s infinite;
         }
         
         .bubble.type-2 {
             animation: 
-                bubble-rise 35s infinite,
-                bubble-pulse-glow 10s infinite,
-                bubble-fade 12s infinite,
-                bubble-drift 50s infinite;
+                bubble-rise ${isMobile() ? 20 : 35}s infinite,
+                bubble-pulse-glow ${isMobile() ? 7 : 10}s infinite,
+                bubble-fade ${isMobile() ? 8 : 12}s infinite,
+                bubble-drift ${isMobile() ? 30 : 50}s infinite;
         }
         
         .bubble.type-3 {
             animation: 
-                bubble-rise 45s infinite,
-                bubble-pulse-glow 6s infinite,
-                bubble-fade 8s infinite,
-                bubble-drift 60s infinite;
+                bubble-rise ${isMobile() ? 25 : 45}s infinite,
+                bubble-pulse-glow ${isMobile() ? 4 : 6}s infinite,
+                bubble-fade ${isMobile() ? 5 : 8}s infinite,
+                bubble-drift ${isMobile() ? 35 : 60}s infinite;
         }
         
         .bubble.type-4 {
             animation: 
-                bubble-rise 30s infinite,
-                bubble-pulse-glow 12s infinite,
-                bubble-fade 15s infinite,
-                bubble-drift 45s infinite;
-        }
-        
-        .bubble.type-5 {
-            animation: 
-                bubble-rise 40s infinite,
-                bubble-pulse-glow 9s infinite,
-                bubble-fade 11s infinite,
-                bubble-drift 55s infinite;
-        }
-        
-        .bubble.type-6 {
-            animation: 
-                bubble-rise 50s infinite,
-                bubble-pulse-glow 15s infinite,
-                bubble-fade 18s infinite,
-                bubble-drift 70s infinite;
-        }
-        
-        @keyframes bubble-drift {
-            0%, 100% {
-                transform: translateX(0);
-            }
-            25% {
-                transform: translateX(calc(var(--drift, 0px) * 0.5));
-            }
-            50% {
-                transform: translateX(var(--drift, 0px));
-            }
-            75% {
-                transform: translateX(calc(var(--drift, 0px) * 0.5));
-            }
+                bubble-rise ${isMobile() ? 18 : 30}s infinite,
+                bubble-pulse-glow ${isMobile() ? 8 : 12}s infinite,
+                bubble-fade ${isMobile() ? 10 : 15}s infinite,
+                bubble-drift ${isMobile() ? 28 : 45}s infinite;
         }
     `;
     document.head.appendChild(waterStyle);
 }
+
+function optimizeBubblesForMobile() {
+    if (isMobile() && window.currentTheme === 'water' && typeof generateBubbles === 'function') {
+        bubbleCount = 60;
+        if (bubbleAnimationFrame) {
+            cancelAnimationFrame(bubbleAnimationFrame);
+        }
+        setTimeout(generateBubbles, 100);
+    }
+}
+
+window.addEventListener('load', optimizeBubblesForMobile);
+window.addEventListener('resize', optimizeBubblesForMobile);

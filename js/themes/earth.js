@@ -1,7 +1,13 @@
 let particleAnimationFrame;
-let particleCount = 150; 
+let particleCount = isMobile() ? 30 : 150; 
+
+function isMobile() {
+    return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
 
 function generateParticles() {
+    if (isMobile() && !document.getElementById('particle-container')) return;
+    
     const container = document.getElementById('particle-container');
     if (!container) return;
 
@@ -11,36 +17,55 @@ function generateParticles() {
     
     container.innerHTML = '';
 
-    for (let i = 0; i < particleCount; i++) {
-        createParticle(container, i);
+    if (isMobile()) {
+        createParticlesBatch(container, 0);
+    } else {
+        for (let i = 0; i < particleCount; i++) {
+            createParticle(container, i);
+        }
     }
     
     setTimeout(() => {
         if (window.currentTheme === 'earth') {
             generateParticles();
         }
-    }, 300000); 
+    }, isMobile() ? 600000 : 300000);
+}
+
+function createParticlesBatch(container, index) {
+    if (index >= particleCount) return;
+    
+    const batchSize = Math.min(8, particleCount - index);
+    for (let i = 0; i < batchSize; i++) {
+        createParticle(container, index + i);
+    }
+    
+    setTimeout(() => {
+        createParticlesBatch(container, index + batchSize);
+    }, 16);
 }
 
 function createParticle(container, index) {
     const particle = document.createElement('div');
-    const particleType = Math.floor(Math.random() * 6) + 1;
+    const particleType = Math.floor(Math.random() * 4) + 1; 
     particle.className = `particle type-${particleType}`;
     
     particle.style.left = `${Math.random() * 100}%`;
     particle.style.top = `${Math.random() * 100}%`;
     
-    const driftDelay = Math.random() * 60; 
-    const glowDelay = Math.random() * 20; 
+    const driftDelay = Math.random() * (isMobile() ? 20 : 60);
+    const glowDelay = Math.random() * (isMobile() ? 10 : 20);
     
     particle.style.animationDelay = `${driftDelay}s, ${glowDelay}s`;
     
-    const scale = 0.5 + Math.random() * 0.5;
+    const scale = isMobile() ? (0.3 + Math.random() * 0.3) : (0.5 + Math.random() * 0.5);
     particle.style.transform = `scale(${scale})`;
     
-    particle.style.opacity = (0.05 + Math.random() * 0.1).toString();
+    particle.style.opacity = (0.05 + Math.random() * 0.07).toString();
     
-    particle.style.willChange = 'transform, opacity';
+    if (!isMobile()) {
+        particle.style.willChange = 'transform, opacity';
+    }
     
     container.appendChild(particle);
 }
@@ -60,22 +85,18 @@ function executeEarth() {
     const aSurvives = random < 1/3; 
     const cSurvives = !aSurvives;   
 
-    // Казнь B (первая) - всегда казнен, так как назван стражником
     setTimeout(() => {
         executePrisonerEarth('b');
         showNotification('⛰️ Узник B погребен заживо', 'danger');
     }, 300);
 
-    // Казнь второго узника (A или C)
     setTimeout(() => {
         if (aSurvives) {
-            // C казнен, A выживает
             executePrisonerEarth('c');
             highlightSurvivorEarth('a');
             showNotification('⛰️ C погребен • A СПАСЁН!', 'success');
         } 
         else {
-            // A казнен, C выживает  
             executePrisonerEarth('a');
             highlightSurvivorEarth('c');
             showNotification('⛰️ A погребен • C СПАСЁН!', 'success');
@@ -130,8 +151,12 @@ if (!document.querySelector('#earth-styles')) {
 }
 
 function optimizeParticlesForMobile() {
-    if (window.innerWidth <= 768 && window.currentTheme === 'earth' && typeof generateParticles === 'function') {
-        particleCount = 80; 
+    if (isMobile() && window.currentTheme === 'earth' && typeof generateParticles === 'function') {
+        particleCount = 30;
+        if (particleAnimationFrame) {
+            cancelAnimationFrame(particleAnimationFrame);
+        }
+        setTimeout(generateParticles, 100);
     }
 }
 

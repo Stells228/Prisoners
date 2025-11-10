@@ -1,7 +1,13 @@
 let airParticleAnimationFrame;
-let airParticleCount = 120; 
+let airParticleCount = isMobile() ? 40 : 120;
+
+function isMobile() {
+    return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
 
 function generateAirParticles() {
+    if (isMobile() && !document.getElementById('air-particle-container')) return;
+    
     const container = document.getElementById('air-particle-container');
     if (!container) return;
 
@@ -11,36 +17,55 @@ function generateAirParticles() {
     
     container.innerHTML = '';
 
-    for (let i = 0; i < airParticleCount; i++) {
-        createAirParticle(container, i);
+    if (isMobile()) {
+        createAirParticlesBatch(container, 0);
+    } else {
+        for (let i = 0; i < airParticleCount; i++) {
+            createAirParticle(container, i);
+        }
     }
     
     setTimeout(() => {
         if (window.currentTheme === 'air') {
             generateAirParticles();
         }
-    }, 300000); 
+    }, isMobile() ? 600000 : 300000); 
+}
+
+function createAirParticlesBatch(container, index) {
+    if (index >= airParticleCount) return;
+    
+    const batchSize = Math.min(10, airParticleCount - index);
+    for (let i = 0; i < batchSize; i++) {
+        createAirParticle(container, index + i);
+    }
+    
+    setTimeout(() => {
+        createAirParticlesBatch(container, index + batchSize);
+    }, 16);
 }
 
 function createAirParticle(container, index) {
     const particle = document.createElement('div');
-    const particleType = Math.floor(Math.random() * 6) + 1; 
+    const particleType = Math.floor(Math.random() * 3) + 1; 
     particle.className = `air-particle type-${particleType}`;
     
     particle.style.left = `${Math.random() * 100}%`;
     particle.style.top = `${Math.random() * 100}%`;
     
-    const driftDelay = Math.random() * 90; 
-    const glowDelay = Math.random() * 30; 
+    const driftDelay = Math.random() * (isMobile() ? 30 : 90); 
+    const glowDelay = Math.random() * (isMobile() ? 15 : 30);
     
     particle.style.animationDelay = `${driftDelay}s, ${glowDelay}s`;
     
-    const scale = 0.6 + Math.random() * 0.6;
+    const scale = isMobile() ? (0.4 + Math.random() * 0.4) : (0.6 + Math.random() * 0.6);
     particle.style.transform = `scale(${scale})`;
     
-    particle.style.opacity = (0.08 + Math.random() * 0.12).toString();
+    particle.style.opacity = (0.08 + Math.random() * 0.08).toString(); 
     
-    particle.style.willChange = 'transform, opacity';
+    if (!isMobile()) {
+        particle.style.willChange = 'transform, opacity';
+    }
     
     container.appendChild(particle);
 }
@@ -65,16 +90,13 @@ function executeAir() {
         showNotification('💨 Узник B унесен ветром', 'danger');
     }, 300);
 
-    // Казнь второго узника (A или C)
     setTimeout(() => {
         if (aSurvives) {
-            // C казнен, A выживает
             executePrisonerAir('c');
             highlightSurvivorAir('a');
             showNotification('💨 C унесен ветром • A СПАСЁН!', 'success');
         } 
         else {
-            // A казнен, C выживает  
             executePrisonerAir('a');
             highlightSurvivorAir('c');
             showNotification('💨 A унесен ветром • C СПАСЁН!', 'success');
@@ -129,8 +151,12 @@ if (!document.querySelector('#air-styles')) {
 }
 
 function optimizeAirParticlesForMobile() {
-    if (window.innerWidth <= 768 && window.currentTheme === 'air' && typeof generateAirParticles === 'function') {
-        airParticleCount = 70;
+    if (isMobile() && window.currentTheme === 'air' && typeof generateAirParticles === 'function') {
+        airParticleCount = 40;
+        if (airParticleAnimationFrame) {
+            cancelAnimationFrame(airParticleAnimationFrame);
+        }
+        setTimeout(generateAirParticles, 100);
     }
 }
 
