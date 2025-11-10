@@ -183,7 +183,7 @@ if (!document.querySelector('#water-styles')) {
 
 function optimizeBubblesForMobile() {
     if (isMobile() && window.currentTheme === 'water' && typeof generateBubbles === 'function') {
-        bubbleCount = 60;
+        bubbleCount = 30;
         if (bubbleAnimationFrame) {
             cancelAnimationFrame(bubbleAnimationFrame);
         }
@@ -194,3 +194,4 @@ function optimizeBubblesForMobile() {
 window.addEventListener('load', optimizeBubblesForMobile);
 
 window.addEventListener('resize', optimizeBubblesForMobile);
+
