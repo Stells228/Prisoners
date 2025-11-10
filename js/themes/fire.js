@@ -1,4 +1,6 @@
 let sparkAnimationFrame;
+let sparkCount = isMobile() ? 20 : 150; 
+
 
 function isMobile() {
     return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -152,11 +154,20 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-
+function optimizeSparksForMobile() {
+    if (isMobile() && window.currentTheme === 'fire' && typeof generateSparks === 'function') {
+        sparkCount = 20;
+        if (sparkAnimationFrame) {
+            cancelAnimationFrame(sparkAnimationFrame);
+        }
+        setTimeout(generateSparks, 100);
+    }
+}
 
 window.addEventListener('load', optimizeSparksForMobile);
 window.addEventListener('resize', optimizeSparksForMobile);
 
 window.addEventListener('resize', handleResize);
+
 
 
