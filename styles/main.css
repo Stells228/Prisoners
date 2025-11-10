@@ -1333,9 +1333,76 @@ body {
     image-rendering: crisp-edges;
 }
 
-/* Уменьшаем количество пузырей на мобильных устройствах*/
 @media (max-width: 768px) {
     #bubble-container {
         height: 120vh;
     }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: var(--space-12) var(--space-8);
+  }
+  
+  .input-section {
+    padding: var(--space-16) var(--space-12);
+    margin: var(--space-16) var(--space-8);
+  }
+  
+  .theme-buttons {
+    gap: var(--space-8);
+    margin: var(--space-16) 0;
+  }
+  
+  .theme-btn {
+    padding: var(--space-10) var(--space-12);
+    font-size: var(--font-size-xs);
+    min-height: 44px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .input-group input {
+    font-size: 16px; 
+    min-height: 44px;
+    padding: var(--space-12);
+  }
+  
+  .input-group label {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-8);
+  }
+  
+  #btn-simulate, [id^="btn-execute-"] {
+    min-height: 50px;
+    font-size: var(--font-size-base);
+    padding: var(--space-12) var(--space-16);
+  }
+}
+
+@media (max-width: 768px) {
+  .spark, .bubble, .particle, .air-particle {
+    animation-duration: 2s !important;
+  }
+  
+  .prisoner-container:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .spark, .bubble, .particle, .air-particle {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .btn, .theme-btn, #btn-simulate, [id^="btn-execute-"] {
+    min-height: 44px;
+    touch-action: manipulation;  
+  }
+  
+  .prisoner-container {
+    min-height: 300px; 
+  }
 }
