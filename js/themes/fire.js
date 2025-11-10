@@ -155,7 +155,7 @@ document.head.appendChild(style);
 
 function optimizeSparksForMobile() {
     if (isMobile() && window.currentTheme === 'fire' && typeof generateSparks === 'function') {
-        sparkCount = 40;
+        sparkCount = 20;
         if (sparkAnimationFrame) {
             cancelAnimationFrame(sparkAnimationFrame);
         }
@@ -167,3 +167,4 @@ window.addEventListener('load', optimizeSparksForMobile);
 window.addEventListener('resize', optimizeSparksForMobile);
 
 window.addEventListener('resize', handleResize);
+
