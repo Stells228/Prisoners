@@ -1,7 +1,6 @@
 let sparkAnimationFrame;
 let sparkCount = isMobile() ? 20 : 150; 
 
-
 function isMobile() {
     return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
@@ -156,7 +155,7 @@ document.head.appendChild(style);
 
 function optimizeSparksForMobile() {
     if (isMobile() && window.currentTheme === 'fire' && typeof generateSparks === 'function') {
-        sparkCount = 20;
+        sparkCount = 40;
         if (sparkAnimationFrame) {
             cancelAnimationFrame(sparkAnimationFrame);
         }
@@ -166,8 +165,4 @@ function optimizeSparksForMobile() {
 
 window.addEventListener('load', optimizeSparksForMobile);
 window.addEventListener('resize', optimizeSparksForMobile);
-
 window.addEventListener('resize', handleResize);
-
-
-
