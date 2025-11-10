@@ -191,10 +191,5 @@ function optimizeBubblesForMobile() {
     }
 }
 
-
 window.addEventListener('load', optimizeBubblesForMobile);
-
 window.addEventListener('resize', optimizeBubblesForMobile);
-
-
-
